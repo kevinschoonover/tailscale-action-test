@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/test.yml"
+  pull_request:
+    paths:
+      - "services/fjord/**/*"
+      - ".github/workflows/test.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Tailscale
+        uses: tailscale/github-action@main
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
