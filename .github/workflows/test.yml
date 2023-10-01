@@ -12,8 +12,16 @@ on:
       - ".github/workflows/test.yml"
 
 jobs:
-  build:
+  github-actions-ubuntu:
     runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Tailscale
+        uses: tailscale/github-action@main
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+  self-hosted:
+    runs-on: self-hosted
     steps:
       - name: Authenticate to Tailscale
         uses: tailscale/github-action@main
