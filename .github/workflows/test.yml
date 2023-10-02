@@ -26,7 +26,7 @@ jobs:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: build
         run: |
-          PATH=$PATH sudo -E earthly --ci +docker
+          sudo -E env PATH=$PATH earthly --ci +docker
      
   self-hosted:
     runs-on: self-hosted
@@ -41,4 +41,5 @@ jobs:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: build
         run: |
-          PATH=$PATH sudo -E earthly --ci +docker
+          sudo -E env PATH=$PATH earthly --ci +docker
+
