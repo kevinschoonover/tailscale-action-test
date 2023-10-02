@@ -16,15 +16,31 @@ jobs:
   github-actions-ubuntu:
     runs-on: ubuntu-latest
     steps:
+      - uses: earthly/actions-setup@v1.0.7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Authenticate to Tailscale
         uses: tailscale/github-action@main
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
+      - run: echo $PATH
+      - run: sudo -E echo $PATH
+      - name: build
+        run: |
+          sudo -E earthly --ci +docker
+     
   self-hosted:
     runs-on: self-hosted
     steps:
+      - uses: earthly/actions-setup@v1.0.7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Authenticate to Tailscale
         uses: tailscale/github-action@main
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+      - run: echo $PATH
+      - run: sudo -E echo $PATH
+      - name: build
+        run: |
+          sudo -E earthly --ci +docker
